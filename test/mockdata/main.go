@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/meddler-xyz/watchdog/producer"
+	"github.com/meddler-io/watchdog/producer"
 )
 
 func main() {
