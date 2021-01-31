@@ -40,9 +40,15 @@ func sendData() {
 
 	},
 
-	"cmd": "bash",
+	"substitute_var": true,
+	"variables": {
+		"input_dir" : "",
+		"output_dir": "$output_dir"
+	},
 
-	"args": [ "-c",  "env > $output_dir/hello_world.txt"   ],
+
+	"cmd": "echo",
+	"args": [  "HelloWorld $output_dir"   ],
 
 	"id": "outputbucket" ,
 
