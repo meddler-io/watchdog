@@ -29,7 +29,9 @@ func sendData() {
 		"system": {
 			"base_path": "/tmp/test",
 			"input_dir":  "input_dirs",
-			"output_dir":  "output_dirs"
+			"output_dir":  "output_dirs",
+			"exec_timeout": "10" 
+
 
 		} ,
 
