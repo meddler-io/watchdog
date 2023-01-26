@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/meddler-io/watchdog/logger"
 	"github.com/meddler-io/watchdog/producer"
 )
 
@@ -9,6 +10,7 @@ func main() {
 	// go sendData()
 	// go sendData()
 	// go sendData()
+	sendData()
 	sendData()
 	// go sendData2()
 	// go sendData3()
@@ -21,7 +23,14 @@ func produce() {
 
 func sendData() {
 
-	producer.Produce(`
+	err := producer.Produce(
+
+		"user",
+		"bitnami",
+		"172.24.42.51",
+		"tasks_test",
+
+		`
   { 
 
 	"config": {
@@ -30,7 +39,12 @@ func sendData() {
 			"base_path": "/tmp/test",
 			"input_dir":  "input_dirs",
 			"output_dir":  "output_dirs",
-			"exec_timeout": "10" 
+			"exec_timeout": "10" ,
+			"git_mode" : "false",
+			"git_auth_mode" :"token",
+			"git_remote" : "https://github.com/cyclops-org/hawkeye-api.git",
+			"git_auth_username": "studiogangster",
+			"git_auth_password": "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"
 
 
 		} ,
@@ -45,12 +59,13 @@ func sendData() {
 	"substitute_var": true,
 	"variables": {
 		"input_dir" : "",
-		"output_dir": "$output_dir"
+		"output_dir": "$output_dir",
+		"git_path": "$git_path"
 	},
 
 
-	"cmd": "echo",
-	"args": [  "HelloWorld $output_dir"   ],
+	"cmd": ["echo"],
+	"args": [  "HelloWorld $output_dir $git_path"   ],
 
 	"id": "outputbucket" ,
 
@@ -66,25 +81,13 @@ func sendData() {
 		
 	"dependencies": [
 
-		{
-			"id": "new-bucket",
-			"alias": "Alias dependen 1",
-			"type": "Type"
-		},
-		{
-			"id": "inputbasket_2",
-			"alias": "Alias dependen 1",
-			"type": "Type"
-		},
-		{
-			"id": "buckettest_3",
-			"alias": "Alias dependen 1",
-			"type": "Type"
-		}
+
 
 
 
 	]
   }`)
+
+	logger.Println(err)
 
 }
